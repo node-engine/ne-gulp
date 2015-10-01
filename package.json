@@ -1,0 +1,27 @@
+{
+  "name": "ne-gulp",
+  "version": "1.0.0",
+  "description": "description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-engine/ne-gulp.git"
+  },
+  "keywords": [
+    "gulp",
+    "nodejs",
+    "node-engine"
+  ],
+  "author": "Bernard Hamann",
+  "license": "SEE LICENSE IN readme.md",
+  "bugs": {
+    "url": "https://github.com/node-engine/ne-gulp/issues"
+  },
+  "homepage": "https://github.com/node-engine/ne-gulp#readme",
+  "dependencies": {
+    "stringify-object": "^2.3.0"
+  }
+}
