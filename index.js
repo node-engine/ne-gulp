@@ -41,7 +41,7 @@ function compileMeta (dirName, handlersFolder){
 
     console.log("The meta file was compiled!");
 
-    var destFilePath = dirName + "/node_engine/ne-routes-meta/appmeta.js";
+    var destFilePath = dirName + "/node_engine/ne-gulp/appmeta.js";
 
 
     fs.writeFile(destFilePath, appMetaFile, 'utf8', function(err) {
@@ -120,7 +120,7 @@ function compileRoutes (dirName, handlersFolder){
 
     console.log("The routes file was compiled!");
 
-    var destFilePath = dirName + "/node_engine/ne-routes-meta/routes.js";
+    var destFilePath = dirName + "/node_engine/ne-gulp/routes.js";
 
     fs.writeFile(destFilePath, routesFile, 'utf8',  function(err) {
         if(err) {
@@ -135,7 +135,7 @@ function compileRoutes (dirName, handlersFolder){
 
 module.exports = function (dirName, handlersFolder){
 
-    var newDirPath = dirName + "/node_engine/ne-routes-meta/";
+    var newDirPath = dirName + "/node_engine/ne-gulp/";
 
     try {
         stats = fs.lstatSync(newDirPath);
