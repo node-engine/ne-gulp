@@ -11,7 +11,13 @@ function compileMeta (dirName, handlersFolder){
     fs.readdirSync(folderPath).forEach(function(filename) {
 
         if (filename === 'aaRoot.js'){
-            console.log(filename + "Skipped on purpose");
+
+            console.log('');
+            console.log('');
+            console.log("ne-gulp: " + filename + "Skipped on purpose");
+            console.log('');
+            console.log('');
+
         }
         else{
             var requirePath = "../../" + handlersFolder + filename;
@@ -23,7 +29,13 @@ function compileMeta (dirName, handlersFolder){
                 singleQuotes: false
             });
 
+            console.log('');
+            console.log('');
+            console.log('ne-gulp: metaString');
             console.log(metaString);
+            console.log('');
+            console.log('');
+
             appMetaFileItems.push(metaString);
             //appMetaFileItems = appMetaFileItems.concat(metaString);
         }
@@ -39,7 +51,11 @@ function compileMeta (dirName, handlersFolder){
         appMetaFileFoot
     );
 
-    console.log("The meta file was compiled!");
+    console.log('');
+    console.log('');
+    console.log("ne-gulp: The meta file was compiled!");
+    console.log('');
+    console.log('');
 
     var destFilePath = dirName + "/node_engine/ne-gulp/appmeta.js";
 
@@ -48,7 +64,13 @@ function compileMeta (dirName, handlersFolder){
         if(err) {
             return console.log(err);
         }
-        console.log("The meta file was saved in " + destFilePath);
+
+        console.log('');
+        console.log('');
+        console.log("ne-gulp: The meta file was saved in " + destFilePath);
+        console.log('');
+        console.log('');
+
     });
 
     return undefined;
@@ -70,7 +92,13 @@ function compileRoutes (dirName, handlersFolder){
     fs.readdirSync(folderPathForHandlers).forEach(function(filename) {
 
         if (filename === 'aaRoot.js'){
+
+            console.log('');
+            console.log('');
+            console.log('ne-gulp: filename');
             console.log(filename);
+            console.log('');
+            console.log('');
         }
         else{
             var handlerName = filename.substr(0,filename.length - 3);
@@ -90,7 +118,13 @@ function compileRoutes (dirName, handlersFolder){
     fs.readdirSync(folderPathForRoutes).forEach(function(filename) {
 
         if (filename === 'aaRoot.js'){
+
+            console.log('');
+            console.log('');
+            console.log('ne-gulp: filename');
             console.log(filename);
+            console.log('');
+            console.log('');
         }
         else {
             var handlerName = filename.substr(0, filename.length - 3);
@@ -118,7 +152,11 @@ function compileRoutes (dirName, handlersFolder){
         routesFileExport
     );
 
-    console.log("The routes file was compiled!");
+    console.log('');
+    console.log('');
+    console.log("ne-gulp: The routes file was compiled!");
+    console.log('');
+    console.log('');
 
     var destFilePath = dirName + "/node_engine/ne-gulp/routes.js";
 
@@ -126,7 +164,13 @@ function compileRoutes (dirName, handlersFolder){
         if(err) {
             return console.log(err);
         }
-        console.log("The routes file was saved in " + destFilePath);
+
+        console.log('');
+        console.log('');
+        console.log("ne-gulp: The routes file was saved in " + destFilePath);
+        console.log('');
+        console.log('');
+
     });
 
     return undefined;
