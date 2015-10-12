@@ -24,20 +24,31 @@ function compileMeta (dirName, handlersFolder){
             var meta = require(requirePath).meta;
             // var metaString = JSON.stringify(meta)
 
-            var metaString = stringify(meta, {
-                indent: '  ',
-                singleQuotes: false
-            });
+            if(meta){
+                var metaString = stringify(meta, {
+                    indent: '  ',
+                    singleQuotes: false
+                });
 
-            console.log('');
-            console.log('');
-            console.log('ne-gulp: metaString');
-            console.log(metaString);
-            console.log('');
-            console.log('');
+                console.log('');
+                console.log('');
+                console.log('ne-gulp: metaString');
+                console.log(metaString);
+                console.log('');
+                console.log('');
 
-            appMetaFileItems.push(metaString);
-            //appMetaFileItems = appMetaFileItems.concat(metaString);
+                appMetaFileItems.push(metaString);
+                //appMetaFileItems = appMetaFileItems.concat(metaString);
+            }
+            else{
+                console.log('');
+                console.log('');
+                console.log('ERROR');
+                console.log('ne-gulp: meta not found for ' + filename);
+                console.log(filename);
+                console.log('');
+                console.log('');
+            }
         }
     });
     //appMetaFileItems.splice(0, 1);
@@ -130,8 +141,20 @@ function compileRoutes (dirName, handlersFolder){
             var handlerName = filename.substr(0, filename.length - 3);
             var requirePath = "../../" + handlersFolder + filename;
             var meta = require(requirePath).meta;
-            var thisRoute = "React.createElement(Route, { path: '" + meta.path + "', handler: " + handlerName + " }),";
-            routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(thisRoute);
+            if(meta){
+                var thisRoute = "React.createElement(Route, { path: '" + meta.path + "', handler: " + handlerName + " }),";
+                routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(thisRoute);
+            }
+            else{
+                console.log('');
+                console.log('');
+                console.log('ERROR');
+                console.log('ne-gulp: meta not found for ' + filename);
+                console.log(filename);
+                console.log('');
+                console.log('');
+            }
+
         }
 
     });
