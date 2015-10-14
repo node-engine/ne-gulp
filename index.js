@@ -200,7 +200,90 @@ function compileRoutes (dirName, handlersFolder){
 
 }
 
-module.exports = function (dirName, handlersFolder){
+
+function compileDataRef (dirName, apiFolder){
+
+    var dataRefFile = "";
+    var dataRefFileHead = "var dataRef = [\n";
+    var dataRefFileItems = [];
+
+    var folderPath = dirName + "/" + apiFolder;
+    fs.readdirSync(folderPath).forEach(function(filename) {
+
+        var requirePath = "../../" + apiFolder + filename;
+        var dataRef = require(requirePath).dataRef;
+        // var metaString = JSON.stringify(meta)
+
+        if(dataRef){
+            var dataRefString = stringify(dataRef, {
+                indent: '  ',
+                singleQuotes: false
+            });
+
+            console.log('');
+            console.log('');
+            console.log('ne-gulp: dataRefString');
+            console.log(dataRefString);
+            console.log('');
+            console.log('');
+
+            dataRefFileItems.push(dataRefString);
+            //dataRefFileItems = dataRefFileItems.concat(dataRefString);
+        }
+        else{
+            console.log('');
+            console.log('');
+            console.log('ERROR');
+            console.log('ne-gulp: dataRef not found for ' + filename);
+            console.log(filename);
+            console.log('');
+            console.log('');
+        }
+
+    });
+    //dataRefFileItems.splice(0, 1);
+
+    var dataRefFileFoot = "\n]; \nmodule.exports = dataRef;";
+
+    // Compile the appRoutes file
+    dataRefFile = dataRefFile.concat(
+        dataRefFileHead,
+        dataRefFileItems,
+        dataRefFileFoot
+    );
+
+    console.log('');
+    console.log('');
+    console.log("ne-gulp: The dataRef file was compiled!");
+    console.log('');
+    console.log('');
+
+    var destFilePath = dirName + "/node_engine/ne-gulp/dataRef.js";
+
+
+    fs.writeFile(destFilePath, dataRefFile, 'utf8', function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        console.log('');
+        console.log('');
+        console.log("ne-gulp: The dataRef file was saved in " + destFilePath);
+        console.log('');
+        console.log('');
+
+    });
+
+    return undefined;
+
+}
+
+
+
+module.exports = function (dirName){
+
+    var handlersFolder = "app/handlers/";
+    var apiFolder = "app/api/";
 
     var newDirPath = dirName + "/node_engine/ne-gulp/";
 
@@ -210,6 +293,7 @@ module.exports = function (dirName, handlersFolder){
             // Yes it is
             compileRoutes(dirName, handlersFolder);
             compileMeta(dirName, handlersFolder);
+            compileDataRef (dirName, apiFolder);
         }
     }
     catch (e) {
@@ -217,6 +301,7 @@ module.exports = function (dirName, handlersFolder){
         console.log("Creating directory " + newDirPath);
         compileRoutes (dirName, handlersFolder);
         compileMeta (dirName, handlersFolder);
+        compileDataRef (dirName, apiFolder)
     }
 
     return undefined
