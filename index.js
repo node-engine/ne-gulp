@@ -1,5 +1,20 @@
 var stringify = require ('stringify-object');
 var fs = require('fs');
+var path = require('path')
+
+//Gulp
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var rename = require("gulp-rename");
+//Stylus
+var stylus = require('gulp-stylus');
+var rupture = require('rupture');
+//PostCSS
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
+var lost = require('lost');
+var rucksack = require('rucksack-css');
 
 function compileMeta (dirName, handlersFolder){
 
@@ -102,7 +117,16 @@ function compileRoutes (dirName, handlersFolder){
     var routesFileImportHandlers = "";
     fs.readdirSync(folderPathForHandlers).forEach(function(filename) {
 
-        if (filename === 'aaRoot.js'){
+        if (path.extname(filename) === ".css"){
+
+            console.log('');
+            console.log('');
+            console.log('css');
+            console.log('');
+            console.log('');
+
+        }
+        else if (filename === 'aaRoot.js'){
 
             console.log('');
             console.log('');
@@ -279,8 +303,7 @@ function compileDataRef (dirName, apiFolder){
 }
 
 
-
-module.exports = function (dirName){
+var compile = function (dirName){
 
     var handlersFolder = "app/handlers/";
     var apiFolder = "app/api/";
@@ -307,3 +330,67 @@ module.exports = function (dirName){
     return undefined
 
 };
+
+
+var doImports = function (){
+
+    gulp.src('./node_modules/*/ne-imports/*.styl')
+        .pipe(gulp.dest('./node_engine/'));
+
+    return undefined
+
+}
+
+var compileHandlers = function (){
+
+    gulp.src('./node_modules/*/ne-handlers/*.js')
+        .pipe(babel())
+        .pipe(rename({
+            dirname: "/handlers"
+        }))
+        .pipe(gulp.dest('./app'));
+
+    return undefined
+
+}
+
+var compileComponents = function (){
+
+    gulp.src('./node_modules/*/ne-components/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('./app/components/'));
+
+    return undefined
+
+}
+
+var compileStyl = function (){
+
+    gulp.src('./node_modules/*/ne-css/*.css')
+        .pipe(gulp.dest('./app/css/'));
+
+    gulp.src('./node_modules/*/ne-css/*.styl')
+        .pipe(stylus({
+            use: [
+                rupture()
+            ]
+        }))
+        .pipe(postcss([
+            precss({}),
+            lost(),
+            autoprefixer({}),
+            rucksack
+            //csswring
+        ]))
+        .pipe(gulp.dest('./app/css/'));
+
+    return undefined
+
+}
+
+exports.compile = compile;
+exports.doImports = doImports;
+exports.compileStyl = compileStyl;
+exports.compileHandlers = compileHandlers;
+exports.compileComponents = compileComponents
+
