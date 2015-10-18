@@ -6,6 +6,7 @@ var path = require('path');
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var rename = require("gulp-rename");
+var del = require('del');
 //Stylus
 var stylus = require('gulp-stylus');
 var rupture = require('rupture');
@@ -331,7 +332,6 @@ var compileMain = function (dirName){
 
 };
 
-
 var doImports = function (){
 
     gulp.src('./node_modules/*/ne-imports/*.styl')
@@ -340,6 +340,39 @@ var doImports = function (){
     return undefined
 
 };
+
+
+var autoStatic = function (){
+
+    gulp.src('src/static/**/**/**/*')
+        .pipe(gulp.dest('./app/static/'));
+
+    return undefined
+
+}
+
+
+var autoClear = function () {
+
+    del([
+        // 'dist/report.csv',
+        // here we use a globbing pattern to match everything inside app folder
+        'app/**/*'
+    ]);
+
+    return undefined
+}
+
+
+var autoBabel = function () {
+
+    gulp.src('src/**/**/**/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('./app/'));
+
+    return undefined
+}
+
 
 var compileHandlers = function (){
 
@@ -386,6 +419,26 @@ var compileComponents = function (){
     return undefined
 
 };
+
+var autoStyl = function(){
+
+    gulp.src('src/css/*.styl')
+        .pipe(stylus({
+            use: [
+                rupture()
+            ]
+        }))
+        .pipe(postcss([
+            precss({}),
+            lost(),
+            autoprefixer({}),
+            rucksack
+            //csswring
+        ]))
+        .pipe(gulp.dest('./app/css/'));
+
+    return undefined
+}
 
 var compileCSS = function (){
 
@@ -491,6 +544,17 @@ exports.compileHandlers = compileHandlers;
 exports.compileStatic = compileStatic;
 exports.compileRoutes = compileRoutes;
 
-
 // compile
 exports.compileMain = compileMain;
+
+
+// other
+exports.autoStyl = autoStyl;
+exports.autoStatic = autoStatic;
+exports.autoClear = autoClear;
+exports.autoBabel = autoBabel;
+
+
+
+
+
