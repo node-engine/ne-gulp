@@ -1,6 +1,6 @@
 var stringify = require ('stringify-object');
 var fs = require('fs');
-var path = require('path')
+var path = require('path');
 
 //Gulp
 var gulp = require('gulp');
@@ -104,12 +104,12 @@ function compileMeta (dirName, handlersFolder){
 }
 
 
-function compileRoutes (dirName, handlersFolder){
+function compileRoutesFile (dirName, handlersFolder){
 
     // Import the dependencies
     var routesFileBase = "'use strict';";
     var routesFileImportVendor = "var React = require('react');var Router = require('react-router');var Route = Router.Route;";
-    var routesFileImportRoot = "var Root = require('../../app/handlers/aaRoot.js');";
+    var routesFileImportRoot = "var Root = require('../../node_engine/ne-gulp/root/root.js');";
 
     // Import the handlers
     // var IndexHandler = require('./handlers/IndexHandler.js');
@@ -225,16 +225,16 @@ function compileRoutes (dirName, handlersFolder){
 }
 
 
-function compileDataRef (dirName, apiFolder){
+function compileDataRef (dirName, dataFolder){
 
     var dataRefFile = "";
     var dataRefFileHead = "var dataRef = [\n";
     var dataRefFileItems = [];
 
-    var folderPath = dirName + "/" + apiFolder;
+    var folderPath = dirName + "/" + dataFolder;
     fs.readdirSync(folderPath).forEach(function(filename) {
 
-        var requirePath = "../../" + apiFolder + filename;
+        var requirePath = "../../" + dataFolder + filename;
         var dataRef = require(requirePath).dataRef;
         // var metaString = JSON.stringify(meta)
 
@@ -303,10 +303,10 @@ function compileDataRef (dirName, apiFolder){
 }
 
 
-var compile = function (dirName){
+var compileMain = function (dirName){
 
     var handlersFolder = "app/handlers/";
-    var apiFolder = "app/api/";
+    var dataFolder = "app/data/";
 
     var newDirPath = dirName + "/node_engine/ne-gulp/";
 
@@ -314,17 +314,17 @@ var compile = function (dirName){
         stats = fs.lstatSync(newDirPath);
         if (stats.isDirectory()) {
             // Yes it is
-            compileRoutes(dirName, handlersFolder);
+            compileRoutesFile(dirName, handlersFolder);
             compileMeta(dirName, handlersFolder);
-            compileDataRef (dirName, apiFolder);
+            compileDataRef (dirName, dataFolder);
         }
     }
     catch (e) {
         fs.mkdir(newDirPath);
         console.log("Creating directory " + newDirPath);
-        compileRoutes (dirName, handlersFolder);
+        compileRoutesFile (dirName, handlersFolder);
         compileMeta (dirName, handlersFolder);
-        compileDataRef (dirName, apiFolder)
+        compileDataRef (dirName, dataFolder)
     }
 
     return undefined
@@ -339,7 +339,7 @@ var doImports = function (){
 
     return undefined
 
-}
+};
 
 var compileHandlers = function (){
 
@@ -350,21 +350,44 @@ var compileHandlers = function (){
         }))
         .pipe(gulp.dest('./app'));
 
+
+    //gulp.src('./node_modules/*/ne-handlers/*.js')
+    //    .pipe(babel())
+    //    .pipe(gulp.dest('./node_engine/'));
+
     return undefined
 
-}
+};
+
+var compileRoot = function (){
+
+    gulp.src('./node_modules/ne-gulp/root/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('./node_engine/ne-gulp/root/'));
+
+    return undefined
+
+};
 
 var compileComponents = function (){
 
     gulp.src('./node_modules/*/ne-components/*.js')
         .pipe(babel())
-        .pipe(gulp.dest('./app/components/'));
+        .pipe(gulp.dest('./node_engine/'));
+
+    gulp.src('./node_modules/*/ne-components/*/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('./node_engine/'));
+
+    gulp.src('./node_modules/*/ne-components/*/*/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('./node_engine/'));
 
     return undefined
 
-}
+};
 
-var compileStyl = function (){
+var compileCSS = function (){
 
     gulp.src('./node_modules/*/ne-css/*.css')
         .pipe(gulp.dest('./app/css/'));
@@ -386,11 +409,88 @@ var compileStyl = function (){
 
     return undefined
 
-}
+};
 
-exports.compile = compile;
+var compileData = function (){
+
+    gulp.src('./node_modules/*/ne-data/*.js')
+        .pipe(babel())
+        .pipe(rename({
+            dirname: "/data"
+        }))
+        .pipe(gulp.dest('./app'));
+
+    return undefined
+
+};
+
+var compileStatic = function (){
+
+    gulp.src('./node_modules/*/ne-static/*')
+        .pipe(rename({
+            dirname: "/static"
+        }))
+        .pipe(gulp.dest('./app'));
+
+    gulp.src('./node_modules/*/ne-static/*/*')
+        .pipe(rename({
+            dirname: "/static"
+        }))
+        .pipe(gulp.dest('./app'));
+
+    gulp.src('./node_modules/*/ne-static/*/*/*')
+        .pipe(rename({
+            dirname: "/static"
+        }))
+        .pipe(gulp.dest('./app'));
+
+    return undefined
+
+};
+
+var compileRoutes = function (){
+
+    gulp.src('./node_modules/*/ne-routes/*')
+        .pipe(rename({
+            dirname: "/routes"
+        }))
+        .pipe(gulp.dest('./app'));
+
+    return undefined
+
+};
+
+var before = function(){
+    this.compileRoot();
+    this.doImports();
+};
+
+var custom = function(){
+    this.compileComponents();
+    this.compileCSS();
+    this.compileData();
+    this.compileHandlers();
+    this.compileStatic();
+    this.compileRoutes();
+
+
+};
+
+
+// before
+exports.before = before;
+exports.compileRoot = compileRoot;
 exports.doImports = doImports;
-exports.compileStyl = compileStyl;
-exports.compileHandlers = compileHandlers;
-exports.compileComponents = compileComponents
 
+// custom
+exports.custom = custom;
+exports.compileComponents = compileComponents;
+exports.compileCSS = compileCSS;
+exports.compileData = compileData;
+exports.compileHandlers = compileHandlers;
+exports.compileStatic = compileStatic;
+exports.compileRoutes = compileRoutes;
+
+
+// compile
+exports.compileMain = compileMain;
