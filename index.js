@@ -152,26 +152,18 @@ function compileRoutesFile (dirName, handlersFolder){
     var routesFileRoutesRootRoutes = "";
     var folderPathForRoutes = dirName + "/" + handlersFolder;
 
+    var lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
+
     fs.readdirSync(folderPathForRoutes).forEach(function(filename) {
 
         if (filename === 'notFoundHandler.js') {
 
-            var lastRoute = "React.createElement(Route, { path: '*', handler: notFoundHandler })";
+            lastRoute = "React.createElement(Route, { path: '*', handler: notFoundHandler })";
 
             console.log('');
             console.log('');
             console.log('ne-gulp: Custom lastRoute ');
             console.log(lastRoute);
-            console.log('');
-            console.log('');
-        }
-        else {
-            var lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
-
-            console.log('');
-            console.log('');
-            console.log('ne-gulp: Default lastRoute ');
-            console.log(lastRoute );
             console.log('');
             console.log('');
         }
