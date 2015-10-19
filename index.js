@@ -183,7 +183,7 @@ function compileRoutesFile (dirName, handlersFolder){
         }
 
     });
-    var lastRoute = "React.createElement(Route, { path: '*', handler: NotFoundHandler })";
+    var lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
     routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
     var routesFileRoutesFoot = ");";
     var routesFileExport = "module.exports = Routes;";
