@@ -151,7 +151,30 @@ function compileRoutesFile (dirName, handlersFolder){
     var routesFileRoutesRoot = "Route,{ path: '/', handler: Root },";
     var routesFileRoutesRootRoutes = "";
     var folderPathForRoutes = dirName + "/" + handlersFolder;
+    var lastRoute;
     fs.readdirSync(folderPathForRoutes).forEach(function(filename) {
+
+        if (filename === '404Handler.js') {
+
+            lastRoute = "React.createElement(Route, { path: '*', handler: 404Handler })";
+
+            console.log('');
+            console.log('');
+            console.log('ne-gulp: Custom lastRoute ');
+            console.log(lastRoute );
+            console.log('');
+            console.log('');
+        }
+        else {
+            lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
+
+            console.log('');
+            console.log('');
+            console.log('ne-gulp: Default lastRoute ');
+            console.log(lastRoute );
+            console.log('');
+            console.log('');
+        }
 
         if (filename === 'aaRoot.js'){
 
@@ -183,7 +206,7 @@ function compileRoutesFile (dirName, handlersFolder){
         }
 
     });
-    var lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
+
     routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
     var routesFileRoutesFoot = ");";
     var routesFileExport = "module.exports = Routes;";
