@@ -157,18 +157,16 @@ function compileRoutesFile (dirName, handlersFolder){
         if (filename === 'notFoundHandler.js') {
 
             lastRoute = "React.createElement(Route, { path: '*', handler: notFoundHandler })";
-            routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
 
             console.log('');
             console.log('');
             console.log('ne-gulp: Custom lastRoute ');
-            console.log(lastRoute );
+            console.log(lastRoute);
             console.log('');
             console.log('');
         }
         else {
             lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
-            routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
 
             console.log('');
             console.log('');
@@ -208,6 +206,7 @@ function compileRoutesFile (dirName, handlersFolder){
         }
 
     });
+    routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
     var routesFileRoutesFoot = ");";
     var routesFileExport = "module.exports = Routes;";
 
