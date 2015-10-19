@@ -116,6 +116,10 @@ function compileRoutesFile (dirName, handlersFolder){
     // var IndexHandler = require('./handlers/IndexHandler.js');
     var folderPathForHandlers = dirName + "/" + handlersFolder;
     var routesFileImportHandlers = "";
+
+    var notFoundHandlerImport = "var neGulpNotFoundHandler = require('../../node_modules/ne-gulp/root/neGulpNotFoundHandler.js').handler;";
+    routesFileImportHandlers = routesFileImportHandlers.concat(notFoundHandlerImport);
+
     fs.readdirSync(folderPathForHandlers).forEach(function(filename) {
 
         if (path.extname(filename) === ".css"){
@@ -131,15 +135,18 @@ function compileRoutesFile (dirName, handlersFolder){
 
             console.log('');
             console.log('');
-            console.log('ne-gulp: filename');
+            console.log('ne-gulp: skipped aaRoot.js');
             console.log(filename);
             console.log('');
             console.log('');
+
         }
         else{
+
             var handlerName = filename.substr(0,filename.length - 3);
             var requireString = "var " + handlerName + " = require('../../app/handlers/" + handlerName + ".js').handler;";
             routesFileImportHandlers = routesFileImportHandlers.concat(requireString);
+
         }
     });
     //var lastRouteHandler = "var NotFoundHandler = require('./handlers/NotFoundHandler.js');";
@@ -167,8 +174,7 @@ function compileRoutesFile (dirName, handlersFolder){
             console.log('');
             console.log('');
         }
-
-        if (filename === 'aaRoot.js'){
+        else if (filename === 'aaRoot.js'){
 
             console.log('');
             console.log('');
