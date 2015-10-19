@@ -480,7 +480,10 @@ var compileCSS = function (){
             rucksack
             //csswring
         ]))
-        .pipe(gulp.dest('./app/css/'));
+        .pipe(rename({
+            dirname: "/css"
+        }))
+        .pipe(gulp.dest('./app/'));
 
     return undefined
 
