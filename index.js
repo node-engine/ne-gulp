@@ -151,12 +151,12 @@ function compileRoutesFile (dirName, handlersFolder){
     var routesFileRoutesRoot = "Route,{ path: '/', handler: Root },";
     var routesFileRoutesRootRoutes = "";
     var folderPathForRoutes = dirName + "/" + handlersFolder;
-    var lastRoute;
+
     fs.readdirSync(folderPathForRoutes).forEach(function(filename) {
 
         if (filename === 'notFoundHandler.js') {
 
-            lastRoute = "React.createElement(Route, { path: '*', handler: notFoundHandler })";
+            var lastRoute = "React.createElement(Route, { path: '*', handler: notFoundHandler })";
 
             console.log('');
             console.log('');
@@ -166,7 +166,7 @@ function compileRoutesFile (dirName, handlersFolder){
             console.log('');
         }
         else {
-            lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
+            var lastRoute = "React.createElement(Route, { path: '*', handler: neGulpNotFoundHandler })";
 
             console.log('');
             console.log('');
@@ -206,7 +206,8 @@ function compileRoutesFile (dirName, handlersFolder){
         }
 
     });
-    routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
+    var routesFileRouteslastRoute = lastRoute;
+    //routesFileRoutesRootRoutes = routesFileRoutesRootRoutes.concat(lastRoute);
     var routesFileRoutesFoot = ");";
     var routesFileExport = "module.exports = Routes;";
 
@@ -218,6 +219,7 @@ function compileRoutesFile (dirName, handlersFolder){
         routesFileRoutesHead,
         routesFileRoutesRoot,
         routesFileRoutesRootRoutes,
+        routesFileRouteslastRoute,
         routesFileRoutesFoot,
         routesFileExport
     );
