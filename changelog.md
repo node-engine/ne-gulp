@@ -19,6 +19,14 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+## 1.4.1
+
+Release date: 20151020
+
+compileData (DN)
+- Fixed bug with ne-auto. The ne-data test file now requires from ne-auto.
+- If ne auto is not installed the modules will not be found and there will be errors.
+
 ## 1.4.0
 
 Release date: 20151019

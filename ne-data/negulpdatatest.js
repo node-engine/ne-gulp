@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+var mongoose = require('ne-auto').mongoose;
 var Schema = mongoose.Schema;
-var neData = require('ne-data');
+var neData = require('ne-auto').neData;
 
 var modelSchema = new Schema({
     testField:{type: String, required: true},
