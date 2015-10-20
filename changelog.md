@@ -22,7 +22,15 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
-# 1.5.2
+## 1.5.3
+
+Release date: 20151021
+
+[BF][DN]
+Fixes bugs caused by 1.5.0
+
+
+## 1.5.2
 
 Release date: 20151020
 
@@ -31,7 +39,7 @@ neGulp.autoWebpack() (NF)
 - the webpack config file is now also part of neGulp and does not need to be in the root.
 
 
-# 1.5.1
+## 1.5.1
 
 Release date: 20151020
 
@@ -39,7 +47,7 @@ All require statements (BF)
 - Fixed some bugs caused by 1.5.0
 
 
-# 1.5.0
+## 1.5.0
 
 Release date: 20151020
 

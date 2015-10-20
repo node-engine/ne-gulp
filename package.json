@@ -1,6 +1,6 @@
 {
   "name": "ne-gulp",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "description",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-stylus": "^2.1.0",
     "lost": "^6.6.2",
+    "ne-auto-off": "^1.0.0",
     "precss": "^1.2.3",
     "rucksack-css": "^0.8.5",
     "rupture": "^0.6.1",

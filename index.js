@@ -1,44 +1,30 @@
 var fs = require('fs');
 var path = require('path');
 
+var neAuto;
 if (process.env.NE_AUTO) {
-
-    var stringify = require(process.env.NE_AUTO).stringifyObject;
-    //Gulp
-    var gulp = require(process.env.NE_AUTO).gulp;
-    var babel = require(process.env.NE_AUTO).gulpBabel;
-    var rename = require(process.env.NE_AUTO).gulpRename;
-    var del = require(process.env.NE_AUTO).del;
-    var webpack = require(process.env.NE_AUTO).webpackStream;
-    //Stylus
-    var stylus = require(process.env.NE_AUTO).gulpStylus;
-    var rupture = require(process.env.NE_AUTO).rupture;
-    //PostCSS
-    var postcss = require(process.env.NE_AUTO).gulpPostcss;
-    var autoprefixer = require(process.env.NE_AUTO).autoprefixer;
-    var precss = require(process.env.NE_AUTO).precss;
-    var lost = require(process.env.NE_AUTO).lost;
-    var rucksack = require(process.env.NE_AUTO).rucksackCSS;
+    neAuto = process.env.NE_AUTO
 }
 else {
-
-    var stringify = require('stringify-object');
-    //Gulp
-    var gulp = require('gulp');
-    var babel = require('gulp-babel');
-    var rename = require("gulp-rename");
-    var del = require('del');
-    var webpack = require('webpack-stream');
-    //Stylus
-    var stylus = require('gulp-stylus');
-    var rupture = require('rupture');
-    //PostCSS
-    var postcss = require('gulp-postcss');
-    var autoprefixer = require('autoprefixer');
-    var precss = require('precss');
-    var lost = require('lost');
-    var rucksack = require('rucksack-css');
+    neAuto = "ne-auto-off"
 }
+
+var stringify = require(neAuto).stringifyObject || require('stringify-object');
+//Gulp
+var gulp = require(neAuto).gulp || require('gulp');
+var babel = require(neAuto).gulpBabel || require('gulp-babel');
+var rename = require(neAuto).gulpRename || require("gulp-rename");
+var del = require(neAuto).del || require('del');
+var webpack = require(neAuto).webpackStream || require('webpack-stream');
+//Stylus
+var stylus = require(neAuto).gulpStylus || require('gulp-stylus');
+var rupture = require(neAuto).rupture || require('rupture');
+//PostCSS
+var postcss = require(neAuto).gulpPostcss || require('gulp-postcss');
+var autoprefixer = require(neAuto).autoprefixer || require('autoprefixer');
+var precss = require(neAuto).precss || require('precss');
+var lost = require(neAuto).lost || require('lost');
+var rucksack = require(neAuto).rucksackCSS || require('rucksack-css');
 
 
 //////////////////////
