@@ -1,13 +1,13 @@
 if (process.env.NE_AUTO) {
     var mongoose = require(process.env.NE_AUTO).mongoose;
-    var Schema = mongoose.Schema;
     var neData = require(process.env.NE_AUTO).neData;
 }
 else {
     var mongoose = require(mongoose);
-    var Schema = mongoose.Schema;
     var neData = require(neData);
 }
+
+var Schema = mongoose.Schema;
 
 var modelSchema = new Schema({
     testField:{type: String, required: true},

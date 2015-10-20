@@ -1,6 +1,6 @@
 if (process.env.NE_AUTO) {
     var React = require(process.env.NE_AUTO).react;
-    var Router = require(process.env.NE_AUTO).react - router;
+    var Router = require(process.env.NE_AUTO).reactRouter;
 }
 else {
     var React = require("react");

@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 
-if (process.env.NE_AUTO === true) {
+if (process.env.NE_AUTO) {
 
     var stringify = require(process.env.NE_AUTO).stringifyObject;
     //Gulp
@@ -14,7 +14,7 @@ if (process.env.NE_AUTO === true) {
     var rupture = require(process.env.NE_AUTO).rupture;
     //PostCSS
     var postcss = require(process.env.NE_AUTO).gulpPostcss;
-    var autoprefixer = require(process.env.NE_AUTO).autoPrefixer;
+    var autoprefixer = require(process.env.NE_AUTO).autoprefixer;
     var precss = require(process.env.NE_AUTO).precss;
     var lost = require(process.env.NE_AUTO).lost;
     var rucksack = require(process.env.NE_AUTO).rucksackCSS;
