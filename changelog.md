@@ -2,6 +2,9 @@
 
 ## Change Tags
 
+Feature
+- NF New feature: Added a new feature
+
 Bug
 - BF Bug fix: Fixed a bug
 
@@ -17,6 +20,15 @@ Dependencies
 - DN New Dependency: A new dependency is added to the package
 - DR Remove Dependency: A  dependency is removed from the package
 - DU Update Dependency: A dependency is updated in the package
+
+
+# 1.5.2
+
+Release date: 20151020
+
+neGulp.autoWebpack() (NF)
+- Added autoWeback function to use in the gulpfile
+- the webpack config file is now also part of neGulp and does not need to be in the root.
 
 
 # 1.5.1

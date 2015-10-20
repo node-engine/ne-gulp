@@ -9,6 +9,7 @@ if (process.env.NE_AUTO) {
     var babel = require(process.env.NE_AUTO).gulpBabel;
     var rename = require(process.env.NE_AUTO).gulpRename;
     var del = require(process.env.NE_AUTO).del;
+    var webpack = require(process.env.NE_AUTO).webpackStream;
     //Stylus
     var stylus = require(process.env.NE_AUTO).gulpStylus;
     var rupture = require(process.env.NE_AUTO).rupture;
@@ -27,6 +28,7 @@ else {
     var babel = require('gulp-babel');
     var rename = require("gulp-rename");
     var del = require('del');
+    var webpack = require('webpack-stream');
     //Stylus
     var stylus = require('gulp-stylus');
     var rupture = require('rupture');
@@ -37,6 +39,11 @@ else {
     var lost = require('lost');
     var rucksack = require('rucksack-css');
 }
+
+
+//////////////////////
+//  compileMeta
+//////////////////////
 
 function compileMeta (dirName, handlersFolder){
 
@@ -125,6 +132,9 @@ function compileMeta (dirName, handlersFolder){
 
 }
 
+//////////////////////
+//  CompileRoutesFile
+//////////////////////
 
 function compileRoutesFile (dirName, handlersFolder){
 
@@ -268,6 +278,9 @@ function compileRoutesFile (dirName, handlersFolder){
 
 }
 
+//////////////////////
+//  compileDataRef
+//////////////////////
 
 function compileDataRef (dirName, dataFolder){
 
@@ -346,6 +359,10 @@ function compileDataRef (dirName, dataFolder){
 
 }
 
+//////////////////////
+//  compileMain
+//////////////////////
+
 
 var compileMain = function (dirName){
 
@@ -375,6 +392,10 @@ var compileMain = function (dirName){
 
 };
 
+//////////////////////
+//
+//////////////////////
+
 var doImports = function (){
 
     gulp.src('./node_modules/*/ne-imports/*.styl')
@@ -385,6 +406,11 @@ var doImports = function (){
 };
 
 
+//////////////////////
+//  gulpAuto
+//////////////////////
+
+
 var autoStatic = function (){
 
     gulp.src('src/static/**/**/**/*')
@@ -392,7 +418,7 @@ var autoStatic = function (){
 
     return undefined
 
-}
+};
 
 
 var autoClear = function () {
@@ -404,7 +430,7 @@ var autoClear = function () {
     ]);
 
     return undefined
-}
+};
 
 
 var autoBabel = function () {
@@ -414,8 +440,69 @@ var autoBabel = function () {
         .pipe(gulp.dest('./app/'));
 
     return undefined
-}
+};
 
+
+var autoWebpack = function () {
+
+    gulp.src('src/client.js')
+        .pipe(webpack(require('./webpack.js')))
+        .pipe(gulp.dest('./app/js/'));
+
+    return undefined
+};
+
+var autoStyl = function () {
+
+    gulp.src('src/css/*.styl')
+        .pipe(stylus({
+            use: [
+                rupture()
+            ]
+        }))
+        .pipe(postcss([
+            precss({}),
+            lost(),
+            autoprefixer({}),
+            rucksack
+            //csswring
+        ]))
+        .pipe(gulp.dest('./app/css/'));
+
+    return undefined
+};
+
+
+//////////////////////
+//  Compile
+//////////////////////
+
+var compileCSS = function () {
+
+    gulp.src('./node_modules/*/ne-css/*.css')
+        .pipe(gulp.dest('./app/css/'));
+
+    gulp.src('./node_modules/*/ne-css/*.styl')
+        .pipe(stylus({
+            use: [
+                rupture()
+            ]
+        }))
+        .pipe(postcss([
+            precss({}),
+            lost(),
+            autoprefixer({}),
+            rucksack
+            //csswring
+        ]))
+        .pipe(rename({
+            dirname: "/css"
+        }))
+        .pipe(gulp.dest('./app/'));
+
+    return undefined
+
+};
 
 var compileHandlers = function (){
 
@@ -458,53 +545,6 @@ var compileComponents = function (){
     gulp.src('./node_modules/*/ne-components/*/*/*.js')
         .pipe(babel())
         .pipe(gulp.dest('./node_engine/'));
-
-    return undefined
-
-};
-
-var autoStyl = function(){
-
-    gulp.src('src/css/*.styl')
-        .pipe(stylus({
-            use: [
-                rupture()
-            ]
-        }))
-        .pipe(postcss([
-            precss({}),
-            lost(),
-            autoprefixer({}),
-            rucksack
-            //csswring
-        ]))
-        .pipe(gulp.dest('./app/css/'));
-
-    return undefined
-}
-
-var compileCSS = function (){
-
-    gulp.src('./node_modules/*/ne-css/*.css')
-        .pipe(gulp.dest('./app/css/'));
-
-    gulp.src('./node_modules/*/ne-css/*.styl')
-        .pipe(stylus({
-            use: [
-                rupture()
-            ]
-        }))
-        .pipe(postcss([
-            precss({}),
-            lost(),
-            autoprefixer({}),
-            rucksack
-            //csswring
-        ]))
-        .pipe(rename({
-            dirname: "/css"
-        }))
-        .pipe(gulp.dest('./app/'));
 
     return undefined
 
@@ -559,6 +599,12 @@ var compileRoutes = function (){
 
 };
 
+
+//////////////////////
+//  Short
+//////////////////////
+
+
 var before = function(){
     this.compileRoot();
     this.doImports();
@@ -574,7 +620,6 @@ var custom = function(){
 
 
 };
-
 
 // before
 exports.before = before;
@@ -593,12 +638,14 @@ exports.compileRoutes = compileRoutes;
 // compile
 exports.compileMain = compileMain;
 
-
-// other
+// auto
 exports.autoStyl = autoStyl;
 exports.autoStatic = autoStatic;
 exports.autoClear = autoClear;
 exports.autoBabel = autoBabel;
+exports.autoWebpack = autoWebpack;
+
+
 
 
 

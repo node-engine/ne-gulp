@@ -1,6 +1,6 @@
 {
   "name": "ne-gulp",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "description",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "precss": "^1.2.3",
     "rucksack-css": "^0.8.5",
     "rupture": "^0.6.1",
-    "stringify-object": "^2.3.0"
+    "stringify-object": "^2.3.0",
+    "webpack-stream": "^2.1.1"
   }
 }
