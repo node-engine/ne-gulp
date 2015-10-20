@@ -1,4 +1,9 @@
-import React from 'react';
+if (process.env.NE_AUTO) {
+    var React = require(process.env.NE_AUTO).react
+}
+else {
+    var React = require("react")
+}
 
 class Footer extends React.Component {
 

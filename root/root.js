@@ -1,5 +1,12 @@
-var React = require('react');
-var Router = require('react-router');
+if (process.env.NE_AUTO) {
+    var React = require(process.env.NE_AUTO).react;
+    var Router = require(process.env.NE_AUTO).react - router;
+}
+else {
+    var React = require("react");
+    var Router = require('react-router');
+}
+
 var RouteHandler = Router.RouteHandler;
 
 var handler = React.createClass({
