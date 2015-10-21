@@ -1,10 +1,5 @@
 "use strict";
-if (process.env.NE_AUTO) {
-    var React = require(process.env.NE_AUTO).react
-}
-else {
-    var React = require("react")
-}
+var React = require("react")
 
 var meta = {
     path: "/gulpnotfound",

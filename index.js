@@ -1,30 +1,22 @@
 var fs = require('fs');
 var path = require('path');
 
-var neAuto;
-if (process.env.NE_AUTO) {
-    neAuto = process.env.NE_AUTO
-}
-else {
-    neAuto = "ne-auto-off"
-}
-
-var stringify = require(neAuto).stringifyObject || require('stringify-object');
+var stringify = require('stringify-object');
 //Gulp
-var gulp = require(neAuto).gulp || require('gulp');
-var babel = require(neAuto).gulpBabel || require('gulp-babel');
-var rename = require(neAuto).gulpRename || require("gulp-rename");
-var del = require(neAuto).del || require('del');
-var webpack = require(neAuto).webpackStream || require('webpack-stream');
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var rename = require("gulp-rename");
+var del = require('del');
+var webpack = require('webpack-stream');
 //Stylus
-var stylus = require(neAuto).gulpStylus || require('gulp-stylus');
-var rupture = require(neAuto).rupture || require('rupture');
+var stylus = require('gulp-stylus');
+var rupture = require('rupture');
 //PostCSS
-var postcss = require(neAuto).gulpPostcss || require('gulp-postcss');
-var autoprefixer = require(neAuto).autoprefixer || require('autoprefixer');
-var precss = require(neAuto).precss || require('precss');
-var lost = require(neAuto).lost || require('lost');
-var rucksack = require(neAuto).rucksackCSS || require('rucksack-css');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
+var lost = require('lost');
+var rucksack = require('rucksack-css');
 
 
 //////////////////////

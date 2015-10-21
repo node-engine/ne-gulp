@@ -22,6 +22,13 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+## 1.5.4
+
+Release date: 20151021
+
+Cancel 1.5.0 and 1.5.2, caused too many bugs
+
+
 ## 1.5.3
 
 Release date: 20151021

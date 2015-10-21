@@ -1,14 +1,5 @@
-var neAuto;
-if (process.env.NE_AUTO) {
-    neAuto = process.env.NE_AUTO
-}
-else {
-    neAuto = "ne-auto-off"
-}
-
-var mongoose = require(neAuto).mongoose || require(mongoose);
-var neData = require(neAuto).neData || require(neData);
-
+var mongoose = require(mongoose);
+var neData = require(neData);
 
 var Schema = mongoose.Schema;
 

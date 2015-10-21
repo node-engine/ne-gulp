@@ -1,12 +1,4 @@
-var neAuto;
-if (process.env.NE_AUTO) {
-    neAuto = process.env.NE_AUTO
-}
-else {
-    neAuto = "ne-auto-off"
-}
-
-var React = require(neAuto).react || require('react');
+var React = require('react');
 
 var meta = {
     path: "/negulphandlertest",
