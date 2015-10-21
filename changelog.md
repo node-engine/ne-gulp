@@ -22,6 +22,14 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+## 1.5.6
+
+Release date: 20151021
+
+[DN]
+webpack
+
+
 ## 1.5.5
 
 Release date: 20151021
