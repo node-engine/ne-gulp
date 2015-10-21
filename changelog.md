@@ -22,6 +22,17 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+## 1.5.7
+
+Release date: 20151021
+
+[DN]
+"babel": "^5.8.23",
+"babel-core": "^5.8.25",
+"babel-loader": "^5.3.2",
+"json-loader": "^0.5.3"
+
+
 ## 1.5.6
 
 Release date: 20151021
