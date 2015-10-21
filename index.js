@@ -42,7 +42,20 @@ function compileMeta (dirName, handlersFolder){
 
         }
         else{
-            var requirePath = "../../" + handlersFolder + filename;
+
+            // var requirePath = "../../" + handlersFolder + filename;
+            // var requirePath = dirName + "/app/handlers/" + filename;
+            var requirePath = dirName + "/" + handlersFolder + filename;
+
+            console.log(' ');
+            console.log(' ');
+            console.log('neGulp compileMeta: ');
+            console.log('requirePath');
+            console.log(requirePath);
+            console.log(' ');
+            console.log(' ');
+
+
             var meta = require(requirePath).meta;
             // var metaString = JSON.stringify(meta)
 
@@ -126,6 +139,8 @@ function compileRoutesFile (dirName, handlersFolder){
     var folderPathForHandlers = dirName + "/" + handlersFolder;
     var routesFileImportHandlers = "";
 
+    // This this needs to be fixed, if will not work in neGulp is not installed in the root of the node_modules folder
+    // Maybe compile this to the node_engine folder
     var notFoundHandlerImport = "var neGulpNotFoundHandler = require('../../node_modules/ne-gulp/root/neGulpNotFoundHandler.js').handler;";
     routesFileImportHandlers = routesFileImportHandlers.concat(notFoundHandlerImport);
 
@@ -194,7 +209,22 @@ function compileRoutesFile (dirName, handlersFolder){
         }
         else {
             var handlerName = filename.substr(0, filename.length - 3);
-            var requirePath = "../../" + handlersFolder + filename;
+
+
+            // var requirePath = "../../" + handlersFolder + filename;
+            // var requirePath = dirName + "/app/handlers/" + filename;
+
+            var requirePath = dirName + "/" + handlersFolder + filename;
+
+            console.log(' ');
+            console.log(' ');
+            console.log('neGulp compileRoutesFile: ');
+            console.log('requirePath');
+            console.log(requirePath);
+            console.log(' ');
+            console.log(' ');
+
+
             var meta = require(requirePath).meta;
             if(meta){
                 var thisRoute = "React.createElement(Route, { path: '" + meta.path + "', handler: " + handlerName + " }),";
@@ -269,7 +299,17 @@ function compileDataRef (dirName, dataFolder){
     var folderPath = dirName + "/" + dataFolder;
     fs.readdirSync(folderPath).forEach(function(filename) {
 
-        var requirePath = "../../" + dataFolder + filename;
+        // var requirePath = "../../" + dataFolder + filename;
+        var requirePath = dirName + "/" + dataFolder + filename;
+
+        console.log(' ');
+        console.log(' ');
+        console.log('neGulp compileDataRef: ');
+        console.log('requirePath');
+        console.log(requirePath);
+        console.log(' ');
+        console.log(' ');
+
         var dataRef = require(requirePath).dataRef;
         // var metaString = JSON.stringify(meta)
 
@@ -376,6 +416,7 @@ var compileMain = function (dirName){
 
 var doImports = function (){
 
+
     gulp.src('./node_modules/*/ne-imports/*.styl')
         .pipe(gulp.dest('./node_engine/'));
 
@@ -388,13 +429,28 @@ var doImports = function (){
 //  gulpAuto
 //////////////////////
 
+var autoHello = function () {
+
+    console.log('            __                                          ');
+    console.log('           /..\\___   Hello, You need to check up on me ');
+    console.log('          /       \\            I crash your gulp watch ');
+    console.log('    _     \\`______/ _                        sometimes ');
+    console.log('___/ \\____|_|______/ \\________________________________');
+    console.log('   \\ /             \\ /                                ');
+    console.log('Sometimes when making changes to files');
+    console.log('the watch command crashes, ');
+    console.log('just run gulp again to start it up again. ');
+};
+
 
 var autoStatic = function (){
 
     gulp.src('src/static/**/**/**/*')
         .pipe(gulp.dest('./app/static/'));
 
-    return undefined
+    return gulp.watch('src/static/**/**/**/*', [
+        'static'
+    ]);
 
 };
 
@@ -417,18 +473,29 @@ var autoBabel = function () {
         .pipe(babel())
         .pipe(gulp.dest('./app/'));
 
-    return undefined
+    return gulp.watch('src/**/**/**/*.js', [
+        'babel'
+    ]);
 };
 
 
-var autoWebpack = function () {
+var autoWebpack = function (dirName, options) {
+
+    var requirePath;
+    if (options && options.compileFor === "production") {
+        requirePath = dirName + "/node_modules/ne-gulp/webpack-production.js";
+    }
+    else {
+        requirePath = dirName + "/node_modules/ne-gulp/webpack.js";
+    }
 
     gulp.src('src/client.js')
-        .pipe(webpack(require('./webpack.js')))
+        .pipe(webpack(require(requirePath)))
         .pipe(gulp.dest('./app/js/'));
 
     return undefined
 };
+
 
 var autoStyl = function () {
 
@@ -447,7 +514,9 @@ var autoStyl = function () {
         ]))
         .pipe(gulp.dest('./app/css/'));
 
-    return undefined
+    return gulp.watch('src/css/*.styl', [
+        'style'
+    ]);
 };
 
 
@@ -613,7 +682,7 @@ exports.compileHandlers = compileHandlers;
 exports.compileStatic = compileStatic;
 exports.compileRoutes = compileRoutes;
 
-// compile
+// compiles
 exports.compileMain = compileMain;
 
 // auto
@@ -622,10 +691,4 @@ exports.autoStatic = autoStatic;
 exports.autoClear = autoClear;
 exports.autoBabel = autoBabel;
 exports.autoWebpack = autoWebpack;
-
-
-
-
-
-
-
+exports.autoHello = autoHello;

@@ -22,6 +22,18 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+## 1.5.5
+
+Release date: 20151021
+
+Fixed 1.5.2
+- After 1.5.2 it still was not working right
+- Now the user has the option to use neGulp.autoWebpack() to compile the webpack with or without minification of the files 
+
+Fixed the require paths for
+- compileMeta, compileRoutesFile, compileDataRef
+
+
 ## 1.5.4
 
 Release date: 20151021

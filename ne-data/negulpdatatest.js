@@ -1,5 +1,5 @@
-var mongoose = require(mongoose);
-var neData = require(neData);
+var mongoose = require('mongoose');
+var neData = require('ne-data');
 
 var Schema = mongoose.Schema;
 
