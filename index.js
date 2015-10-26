@@ -411,21 +411,6 @@ var compileMain = function (dirName){
 };
 
 //////////////////////
-//
-//////////////////////
-
-var doImports = function (){
-
-
-    gulp.src('./node_modules/*/ne-imports/*.styl')
-        .pipe(gulp.dest('./node_engine/'));
-
-    return undefined
-
-};
-
-
-//////////////////////
 //  gulpAuto
 //////////////////////
 
@@ -461,6 +446,10 @@ var autoClear = function () {
         // 'dist/report.csv',
         // here we use a globbing pattern to match everything inside app folder
         'app/**/*'
+    ]);
+
+    del([
+        'node_engine/**/*'
     ]);
 
     return undefined
@@ -521,10 +510,20 @@ var autoStyl = function () {
 
 
 //////////////////////
-//  Compile
+//  Install Node Engine
 //////////////////////
 
-var compileCSS = function () {
+var installNeImports = function () {
+
+
+    gulp.src('./node_modules/*/ne-imports/*.styl')
+        .pipe(gulp.dest('./node_engine/'));
+
+    return undefined
+
+};
+
+var installNeCSS = function () {
 
     gulp.src('./node_modules/*/ne-css/*.css')
         .pipe(gulp.dest('./app/css/'));
@@ -551,7 +550,7 @@ var compileCSS = function () {
 
 };
 
-var compileHandlers = function (){
+var installNeHandlers = function () {
 
     gulp.src('./node_modules/*/ne-handlers/*.js')
         .pipe(babel())
@@ -569,7 +568,7 @@ var compileHandlers = function (){
 
 };
 
-var compileRoot = function (){
+var installNeRoot = function () {
 
     gulp.src('./node_modules/ne-gulp/root/*.js')
         .pipe(babel())
@@ -579,7 +578,7 @@ var compileRoot = function (){
 
 };
 
-var compileComponents = function (){
+var installNeComponents = function () {
 
     gulp.src('./node_modules/*/ne-components/*.js')
         .pipe(babel())
@@ -597,7 +596,7 @@ var compileComponents = function (){
 
 };
 
-var compileData = function (){
+var installNeData = function () {
 
     gulp.src('./node_modules/*/ne-data/*.js')
         .pipe(babel())
@@ -610,7 +609,7 @@ var compileData = function (){
 
 };
 
-var compileStatic = function (){
+var installNeStatic = function () {
 
     gulp.src('./node_modules/*/ne-static/*')
         .pipe(rename({
@@ -634,7 +633,7 @@ var compileStatic = function (){
 
 };
 
-var compileRoutes = function (){
+var installNeRoutes = function () {
 
     gulp.src('./node_modules/*/ne-routes/*')
         .pipe(rename({
@@ -652,37 +651,31 @@ var compileRoutes = function (){
 //////////////////////
 
 
-var before = function(){
-    this.compileRoot();
-    this.doImports();
-};
+var neInstall = function () {
 
-var custom = function(){
-    this.compileComponents();
-    this.compileCSS();
-    this.compileData();
-    this.compileHandlers();
-    this.compileStatic();
-    this.compileRoutes();
-
+    installNeRoot();
+    installNeImports();
+    installNeCSS();
+    installNeComponents();
+    installNeHandlers();
+    installNeData();
+    installNeStatic();
+    installNeRoutes();
 
 };
 
-// before
-exports.before = before;
-exports.compileRoot = compileRoot;
-exports.doImports = doImports;
+// Install Node Engine
+exports.neInstall = neInstall;
+exports.installNeRoot = installNeRoot;
+exports.installImports = installNeImports;
+exports.installNeCSS = installNeCSS;
+exports.installNeComponents = installNeComponents;
+exports.installNeHandlers = installNeHandlers;
+exports.installNeData = installNeData;
+exports.installNeStatic = installNeStatic;
+exports.installNeRoutes = installNeRoutes;
 
-// custom
-exports.custom = custom;
-exports.compileComponents = compileComponents;
-exports.compileCSS = compileCSS;
-exports.compileData = compileData;
-exports.compileHandlers = compileHandlers;
-exports.compileStatic = compileStatic;
-exports.compileRoutes = compileRoutes;
-
-// compiles
+// Compile Node Engine
 exports.compileMain = compileMain;
 
 // auto

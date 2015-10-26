@@ -22,6 +22,28 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
+## 1.6.0
+
+Release date: 20151027
+
+Only run neInstall if the ne-modules where updated, not part of the default task.
+
+[CI] 
+- doImports -> change to -> installNeImports
+- compileCSS -> change to -> installNeCSS
+- compileHandlers -> change to -> installNeHandlers
+- compileRoot -> change to -> installNeRoot
+- compileComponents -> change to -> installNeComponents
+- compileData -> change to -> installNeData
+- compileStatic -> change to -> installNeStatic
+- compileRoutes -> change to -> installNeRoutes
+- before -> change to -> neInstall
+- custom -> merged into neInstall and removed 
+
+[CO]
+- autoClear now also clears the node_engine folder
+
+
 ## 1.5.7
 
 Release date: 20151021
