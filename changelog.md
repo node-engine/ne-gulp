@@ -21,6 +21,11 @@ Dependencies
 - DR Remove Dependency: A  dependency is removed from the package
 - DU Update Dependency: A dependency is updated in the package
 
+## 1.6.1
+
+Release date: 30 Oct 2015
+
+[BF] .css files in the src/css was not being processed to the app/css folder
 
 ## 1.6.0
 

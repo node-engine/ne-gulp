@@ -488,6 +488,9 @@ var autoWebpack = function (dirName, options) {
 
 var autoStyl = function () {
 
+    gulp.src('src/css/*.css')
+        .pipe(gulp.dest('./app/css/'));
+
     gulp.src('src/css/*.styl')
         .pipe(stylus({
             use: [
