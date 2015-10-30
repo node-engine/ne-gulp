@@ -467,6 +467,13 @@ var autoBabel = function () {
     ]);
 };
 
+var autoFonts = function () {
+
+    gulp.src('src/fonts/*.*')
+        .pipe(gulp.dest('./app/fonts'));
+
+};
+
 
 var autoWebpack = function (dirName, options) {
 
@@ -530,6 +537,15 @@ var installNeJs = function () {
 
     gulp.src('./node_modules/*/ne-js/*.js')
         .pipe(gulp.dest('./app/js'));
+
+    return undefined
+
+};
+
+var installNeFonts = function () {
+
+    gulp.src('./node_modules/*/ne-fonts/*.*')
+        .pipe(gulp.dest('./app/fonts'));
 
     return undefined
 
@@ -673,7 +689,8 @@ var neInstall = function () {
     installNeData();
     installNeStatic();
     installNeRoutes();
-    installNeJs()
+    installNeJs();
+    installNeFonts();
 
 };
 
@@ -688,12 +705,14 @@ exports.installNeData = installNeData;
 exports.installNeStatic = installNeStatic;
 exports.installNeRoutes = installNeRoutes;
 exports.installNeJs = installNeJs;
+exports.installNeFonts = installNeFonts;
 
 // Compile Node Engine
 exports.compileMain = compileMain;
 
 // auto
 exports.autoStyl = autoStyl;
+exports.autoFonts = autoFonts;
 exports.autoStatic = autoStatic;
 exports.autoClear = autoClear;
 exports.autoBabel = autoBabel;
