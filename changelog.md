@@ -21,6 +21,14 @@ Dependencies
 - DR Remove Dependency: A  dependency is removed from the package
 - DU Update Dependency: A dependency is updated in the package
 
+## 1.6.2
+
+Release date: 30 Oct 2015
+
+[FN] content of ne-js folders are now installed to the /app/js folder 
+[FN] app no longer get the normalize and html5 shim from cdn but these are included in the app file instead to help with offline app development
+
+
 ## 1.6.1
 
 Release date: 30 Oct 2015

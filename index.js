@@ -526,6 +526,15 @@ var installNeImports = function () {
 
 };
 
+var installNeJs = function () {
+
+    gulp.src('./node_modules/*/ne-js/*.js')
+        .pipe(gulp.dest('./app/js'));
+
+    return undefined
+
+};
+
 var installNeCSS = function () {
 
     gulp.src('./node_modules/*/ne-css/*.css')
@@ -664,6 +673,7 @@ var neInstall = function () {
     installNeData();
     installNeStatic();
     installNeRoutes();
+    installNeJs()
 
 };
 
@@ -677,6 +687,7 @@ exports.installNeHandlers = installNeHandlers;
 exports.installNeData = installNeData;
 exports.installNeStatic = installNeStatic;
 exports.installNeRoutes = installNeRoutes;
+exports.installNeJs = installNeJs;
 
 // Compile Node Engine
 exports.compileMain = compileMain;
