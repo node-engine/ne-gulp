@@ -287,9 +287,10 @@ function compileRoutesFile (dirName, handlersFolder){
 }
 
 //////////////////////
-//  compileDataRef
+//  compileDataRef    ( This Can be deleted )
 //////////////////////
 
+/*
 function compileDataRef (dirName, dataFolder){
 
     var dataRefFile = "";
@@ -376,6 +377,8 @@ function compileDataRef (dirName, dataFolder){
     return undefined;
 
 }
+
+*/
 
 //////////////////////
 //  compileMain
@@ -627,6 +630,8 @@ var installNeComponents = function () {
 
 };
 
+/*
+
 var installNeData = function () {
 
     gulp.src('./node_modules/*/ne-data/*.js')
@@ -639,6 +644,8 @@ var installNeData = function () {
     return undefined
 
 };
+
+*/
 
 var installNeStatic = function () {
 
@@ -689,7 +696,7 @@ var neInstall = function () {
     installNeCSS();
     installNeComponents();
     installNeHandlers();
-    installNeData();
+    //installNeData();
     installNeStatic();
     installNeRoutes();
     installNeJs();
@@ -704,7 +711,7 @@ exports.installImports = installNeImports;
 exports.installNeCSS = installNeCSS;
 exports.installNeComponents = installNeComponents;
 exports.installNeHandlers = installNeHandlers;
-exports.installNeData = installNeData;
+// exports.installNeData = installNeData;
 exports.installNeStatic = installNeStatic;
 exports.installNeRoutes = installNeRoutes;
 exports.installNeJs = installNeJs;
