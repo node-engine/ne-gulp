@@ -388,7 +388,7 @@ function compileDataRef (dirName, dataFolder){
 var compileMain = function (dirName){
 
     var handlersFolder = "app/handlers/";
-    var dataFolder = "app/data/";
+    // var dataFolder = "app/data/";
 
     var newDirPath = dirName + "/node_engine/ne-gulp/";
 
@@ -630,7 +630,7 @@ var installNeComponents = function () {
 
 };
 
-/*
+
 
 var installNeData = function () {
 
@@ -645,7 +645,6 @@ var installNeData = function () {
 
 };
 
-*/
 
 var installNeStatic = function () {
 

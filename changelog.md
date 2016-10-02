@@ -22,7 +22,7 @@ Dependencies
 - DU Update Dependency: A dependency is updated in the package
 
 
-# 1.7.1
+# 1.7.2
 
 [DR] Removed ne-data
 
