@@ -406,7 +406,7 @@ var compileMain = function (dirName){
         console.log("Creating directory " + newDirPath);
         compileRoutesFile (dirName, handlersFolder);
         compileMeta (dirName, handlersFolder);
-        compileDataRef (dirName, dataFolder)
+        // compileDataRef (dirName, dataFolder)
     }
 
     return undefined
