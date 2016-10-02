@@ -398,7 +398,7 @@ var compileMain = function (dirName){
             // Yes it is
             compileRoutesFile(dirName, handlersFolder);
             compileMeta(dirName, handlersFolder);
-            compileDataRef (dirName, dataFolder);
+            //compileDataRef (dirName, dataFolder);
         }
     }
     catch (e) {
