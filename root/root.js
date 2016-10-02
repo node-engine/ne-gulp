@@ -7,13 +7,6 @@ var handler = React.createClass({
 
     render: function() {
 
-        console.log('');
-        console.log('');
-        console.log('aaRoot: this.props');
-        console.log(this.props);
-        console.log('');
-        console.log('');
-
         var css;
         if (this.props.meta && this.props.meta.css){
             css = this.props.meta.css.map(function(sheet, index){

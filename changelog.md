@@ -21,6 +21,27 @@ Dependencies
 - DR Remove Dependency: A  dependency is removed from the package
 - DU Update Dependency: A dependency is updated in the package
 
+
+# 1.7.0
+
+[DR] Removed ne-data
+
+
+# 1.6.7
+
+Release date: not Released
+
+[CO] installNeCSS 
+- Breaking change
+
+
+## 1.6.3
+
+Release date: 30 Oct 2015
+
+[CO] Removed a console log in the root file
+
+
 ## 1.6.2
 
 Release date: 30 Oct 2015

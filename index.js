@@ -554,6 +554,9 @@ var installNeFonts = function () {
 var installNeCSS = function () {
 
     gulp.src('./node_modules/*/ne-css/*.css')
+        .pipe(rename({
+            dirname: "/css"
+        }))
         .pipe(gulp.dest('./app/css/'));
 
     gulp.src('./node_modules/*/ne-css/*.styl')
